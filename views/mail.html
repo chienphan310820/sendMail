@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Spam</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h2>Test thử send mail nhanh nè! Ahihi</h2>
+            <form class="form">
+                <div>
+                    <div class="red"></div>
+                    <label for="subject">Subject<span class="colon">:</span></label>
+                    <input name="subject" id="subject" type="text" />
+                </div>
+                <div>
+                    <div class="red"></div>
+                    <label for="text">text<span class="colon">:</span></label>
+                    <textarea name="text" id="text"></textarea>
+                </div>
+                <input type=" email" id="email" placeholder="Email">
+
+                <button id="SendMail" type="button">Send Now</button>
+                <div><a href="https://www.facebook.com/chien3108">About me</a></div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    $("#SendMail").click(function () {
+        $.ajax({
+            url: "/mail",
+            method: "post",
+            data: {
+                subject: $("#subject").val(),
+                text: $("#text").val(),
+                email: $('#email').val()
+            }
+        }).then(function (data) {
+            console.log(data);
+            if (data.error === false) {
+                alert(data.message)
+                // return window.location.href = "";
+            }
+            if (data.error === true) {
+                alert("send mail thất bại!")
+                // return window.location.href = "";
+            }
+        }).catch(function (error) {
+            console.log("loiiiiiiiii");
+            console.log(error);
+        })
+
+    })
+</script>
+
+</html>
